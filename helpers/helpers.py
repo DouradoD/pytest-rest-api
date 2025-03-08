@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 def execution_time(func):
@@ -10,5 +11,8 @@ def execution_time(func):
     return wrapper
 
 def get_json_value(path):
-    with open(path, 'r', encoding="utf8") as file:
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    absolute_path = os.path.join(base_dir, path)
+
+    with open(absolute_path, 'r', encoding="utf8") as file:
         return json.load(file)

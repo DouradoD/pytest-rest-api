@@ -1,3 +1,15 @@
+# Local env
 .venv
+
+#IDE configs
 .idea
+
+# python verions
 .python-version
+
+# pytest html report
+report.html
+
+#python cache
+**/__pycache__
+*.py[cod]

@@ -20,10 +20,31 @@ To execute the tests, follow the steps below:
 
 Navigate to the project's root directory.
 
-Execute the following command:
+### Single execution - Execute the following command for :
    ```bash
       pytest
+      or 
+      pytest ./tests/test_{file_name}.py
    ```
+
+### Parallel execution - Execute the following command for :
+   ```bash
+      pytest -n {worker quantity to execute in parallel}
+      Ex: 
+      pytest -n 5
+   ```
+Note: Check the time consumed using single parallel execution in.
+
+### Generate report:
+   ```bash
+      pytest --html=report.html
+      or 
+      pytest ./tests/test_{file_name}.py --html=report.html
+      or 
+      pytest -n 5 --html=report.html
+   ```
+Note: Check the time consumed using single parallel execution in.
+
 ## Project Structure
 The project is organized into layers to promote separation of concerns:
 
@@ -36,3 +57,7 @@ The project is organized into layers to promote separation of concerns:
   - Managing business logic and operations before making API requests.
   
 - [base_service/]: Provides a base class with generic methods for API interaction (GET, PUT, POST, etc.), facilitating the implementation of specific services.
+
+- [helpers/]: Contains only common functions
+
+- [conftest.py]: Contains all functions related to setup and tear down from (Pytest, Pytest-html, Pytest-xdist)
