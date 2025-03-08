@@ -1,3 +1,5 @@
+from time import sleep
+
 from services.service_countries import ServiceCountries
 import pytest
 
