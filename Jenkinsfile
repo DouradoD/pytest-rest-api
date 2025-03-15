@@ -9,13 +9,13 @@ pipeline {
             steps {
                 script {
                     // Check if pyenv is installed
-                    def pyenvInstalled = bat(script: 'where pyenv', returnStatus: true) == 0
+                    def pyenvInstalled = bat(script: 'command -v pyenv', returnStatus: true) == 0
                     if (!pyenvInstalled) {
                         echo 'pyenv is not installed. Installing pyenv...'
                         // Install pyenv-win using Chocolatey
                         bat '''
-                        choco install pyenv-win -y
-                        refreshenv
+                        Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+                        Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
                         '''
                     } else {
                         echo 'pyenv is already installed.'
