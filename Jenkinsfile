@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PYTHON_VERSION = '3.10.5'
+        PYTHON_VERSION = '3.8.12'
     }
     stages {
         stage('Set up Python Environment') {
@@ -19,7 +19,7 @@ pipeline {
                         """
                     } else {
                         // Linux-specific setup
-                        sh """
+                        sh '''
                         curl https://pyenv.run | bash
                         export PYENV_ROOT="$HOME/.pyenv"
                         export PATH="$PYENV_ROOT/bin:$PATH"
@@ -28,7 +28,7 @@ pipeline {
                         pyenv local ${env.PYTHON_VERSION}
                         python -m venv venv
                         venv/bin/pip install -r requirements.txt
-                        """
+                        '''
                     }
                 }
             }
