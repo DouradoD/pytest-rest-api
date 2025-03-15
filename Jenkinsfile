@@ -7,11 +7,22 @@ pipeline {
         stage('Set up Python Environment') {
             steps {
                 script {
+
                     def isWindows = isUnix() ? false : true
                     if (isWindows) {
+                        // Install choco
+                        def chocoInstalled = bat(script: 'where choco', returnStatus: true) == 0
+                        if (!chocoInstalled) {
+                            echo 'Chocolatey is not installed. Installing Chocolatey...'
+                            // Install Chocolatey
+                            bat '''
+                            @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+                            '''
+                        } else {
+                            echo 'Chocolatey is already installed.'
+                        }
                         // Windows-specific setup
                         bat """
-                        choco install pyenv-win -y
                         pyenv install ${env.PYTHON_VERSION} --force
                         pyenv local ${env.PYTHON_VERSION}
                         python -m venv venv
