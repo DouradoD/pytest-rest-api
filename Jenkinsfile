@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         // Set the required Python version
-        PYTHON_VERSION = '3.8.12'
+        PYTHON_VERSION = '3.10.5'
     }
     stages {
         stage('Check pyenv Installation') {
