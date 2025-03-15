@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Set Python version (adjust as needed)
-        PYTHON = 'python3.8'
+        PYTHON = 'python3'
     }
 
     stages {
