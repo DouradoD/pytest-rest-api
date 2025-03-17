@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "pytest-rest-api" // Name of the Docker image
+        DOCKER_IMAGE = "pytest-rest-api"
     }
     stages {
         stage('Build Docker Image') {
