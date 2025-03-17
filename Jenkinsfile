@@ -89,7 +89,6 @@ pipeline {
             steps {
                 script {
                     // Create a virtual environment and install dependencies
-                    sh "pip install -r requirements.txt"
                     def isWindows = isUnix() ? false : true
                     if (isWindows) {
                         // Windows-specific setup
@@ -104,9 +103,9 @@ pipeline {
                         // Linux-specific setup
                         sh """
                         curl https://pyenv.run | bash
-                        export PYENV_ROOT="$HOME/.pyenv"
-                        export PATH="$PYENV_ROOT/bin:$PATH"
-                        eval "$(pyenv init -)"
+                        export PYENV_ROOT="\$HOME/.pyenv"
+                        export PATH="\$PYENV_ROOT/bin:\$PATH"
+                        eval "\$(pyenv init -)"
                         pyenv install ${env.PYTHON_VERSION} --force
                         pyenv local ${env.PYTHON_VERSION}
                         python -m venv venv
@@ -120,7 +119,6 @@ pipeline {
             steps {
                 script {
                     // Run tests using pytest
-                    sh "pytest -n 5 --html=report.html"
                     def isWindows = isUnix() ? false : true
                     if (isWindows) {
                         bat 'venv\\Scripts\\pytest'
@@ -134,10 +132,6 @@ pipeline {
     post {
         always {
             // Clean up the virtual environment
-            bat 'rmdir /s /q venv'
-        }
-        failure {
-            echo 'Tests failed!'
             script {
                 def isWindows = isUnix() ? false : true
                 if (isWindows) {
@@ -146,6 +140,9 @@ pipeline {
                     sh 'rm -rf venv'
                 }
             }
+        }
+        failure {
+            echo 'Tests failed!'
         }
     }
 }
