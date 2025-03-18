@@ -1,9 +1,8 @@
 pipeline {
-    agent any
+    agent any // Runs on any available agent
     environment {
-        DOCKER_IMAGE = "pytest-rest-api"
+        DOCKER_IMAGE = "pytest-restapi" // Name of the Docker image
     }
-    agent none // No global agent; define agents at the stage level
     stages {
         stage('Build Docker Image') {
             steps {
@@ -14,8 +13,6 @@ pipeline {
             }
         }
         stage('Run Tests') {
-        stage('Example') {
-            agent any // Runs on any available agent
             steps {
                 script {
                     // Run the Docker container and execute tests
@@ -38,7 +35,6 @@ pipeline {
             // Clean up Docker images
             script {
                 sh "docker rmi ${env.DOCKER_IMAGE} || true"
-                echo 'Running on any agent'
             }
         }
     }
