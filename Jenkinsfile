@@ -12,6 +12,21 @@ pipeline {
                 }
             }
         }
+        stage('Debug') {
+                steps {
+                    script {
+                        // Check Docker version
+                        sh 'docker --version'
+
+                        // List Docker images
+                        sh 'docker images'
+
+                        // Check Jenkins workspace
+                        sh 'pwd'
+                        sh 'ls -la'
+                    }
+                }
+            }
         stage('Run Tests') {
             steps {
                 script {
