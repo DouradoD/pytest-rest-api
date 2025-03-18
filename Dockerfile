@@ -13,7 +13,7 @@ RUN rm -rf .git/
 RUN chmod +x requirements.sh
 
 # Install dependencies
-RUN ./requirements.sh
+RUN pip install -r requirements.txt
 
 # Default command to run tests
 ENTRYPOINT ["pytest"]
