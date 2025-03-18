@@ -1,32 +1,21 @@
 pipeline {
-    agent any // Runs on any available agent
-    environment {
-        DOCKER_IMAGE = "pytest-restapi" // Name of the Docker image
-    }
-    stages {
-        stage('Build Docker Image') {
+    agent { dockerfile true }
+    stage('Debug') {
+            agent any
             steps {
                 script {
-                    // Build the Docker image
-                    docker.build("${env.DOCKER_IMAGE}")
+                    // Check Docker version
+                    sh 'docker --version'
+
+                    // List Docker images
+                    sh 'docker images'
+
+                    // Check Jenkins workspace
+                    sh 'pwd'
+                    sh 'ls -la'
                 }
             }
         }
-        stage('Debug') {
-                steps {
-                    script {
-                        // Check Docker version
-                        sh 'docker --version'
-
-                        // List Docker images
-                        sh 'docker images'
-
-                        // Check Jenkins workspace
-                        sh 'pwd'
-                        sh 'ls -la'
-                    }
-                }
-            }
         stage('Run Tests') {
             steps {
                 script {
