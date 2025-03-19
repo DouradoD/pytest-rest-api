@@ -13,8 +13,8 @@ RUN rm -rf .git/
 RUN chmod +x requirements.sh
 
 # Install dependencies
-RUN ./requirements.sh
+RUN pip install -r requirements.txt
 
-# Default command to run tests(When execute "docker run --rm <project_name>" all those commands will be used)
+# Default command to run tests
 ENTRYPOINT ["pytest"]
 CMD ["-s", "-v", "--log-level=info", "--tb=auto", "--html=reports/report.html", "--self-contained-html"]
