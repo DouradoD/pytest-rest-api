@@ -13,3 +13,5 @@ report.html
 #python cache
 **/__pycache__
 *.py[cod]
+
+assets
