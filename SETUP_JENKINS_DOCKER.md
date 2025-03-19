@@ -10,8 +10,10 @@ Follow these steps to set up Jenkins and Docker for CI/CD:
 - Enable Docker Experimental Features (optional).
 
 ## 2. Create a Docker Network
-```bash
-docker network create jenkins
+```
+   docker network create jenkins
+   AND
+   docker network ls -> Display the docker networks, the jenkins should be there
 ```
 
 ## 3. Run Docker-in-Docker (DinD) Container
@@ -23,6 +25,9 @@ docker network create jenkins
   --volume jenkins-data:/var/jenkins_home ^
   --publish 2376:2376 ^
   docker:dind
+```
+```
+   docker ps -> Will list the docker containers, the jenkins-docker should be there
 ```
 ### Attributes and Commands Explained
 
@@ -78,6 +83,9 @@ docker network create jenkins
     USER jenkins
     RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
    ```
+   ```
+   docker images -> Will list the docker images, the jenkins/jenkins should be there
+   ```
    ### Attributes and Commands Explained
 - FROM jenkins/jenkins:2.492.2-jdk17:
   - Specifies the base image (jenkins/jenkins:2.492.2-jdk17), which is the official Jenkins image with JDK 17.
@@ -108,6 +116,9 @@ docker network create jenkins
    ```bash
       docker build -t myjenkins-blueocean:2.492.2-1 .
    ```
+   ```
+   docker images -> Will list the docker images, the myjenkins-blueocean:2.492.2-1 should be there
+   ```
 5. Run the Custom Jenkins Container
 ```bash
     docker run --name jenkins-blueocean --restart=on-failure --detach ^
@@ -117,6 +128,9 @@ docker network create jenkins
   --volume jenkins-docker-certs:/certs/client:ro ^
   --publish 8080:8080 --publish 50000:50000 myjenkins-blueocean:2.492.2-1
 ```
+   ```
+   docker ps -> Will list the docker containers, the jenkins-blueocean should be there
+   ```
 ### Attributes and Commands Explained
 
 - docker run:
@@ -165,6 +179,23 @@ docker network create jenkins
    ```
    docker logs jenkins-blueocean
    ```
+   Get the key, ex:
+   ````
+   *************************************************************
+   *************************************************************
+   
+   Jenkins initial setup is required. An admin user has been created and a password generated.
+   Please use the following password to proceed to installation:
+   
+   <YOUR KEY>
+   
+   This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+   
+   *************************************************************
+   *************************************************************
+   *************************************************************
+
+   ````
    3. Complete the Jenkins setup wizard.
 
 7. Configure Jenkins for Your Project
