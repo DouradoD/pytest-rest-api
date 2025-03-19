@@ -15,11 +15,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Run the project Docker container and execute tests
-                    docker.image("${env.DOCKER_IMAGE}").inside {
-                        // Run pytest inside the container
-                        sh 'pytest -s -v --log-level=info --tb=auto --html=reports/report.html --self-contained-html'
-                    }
+                    sh 'docker run --rm pytest-rest-api-docker-image pytest'
                 }
             }
         }
