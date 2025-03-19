@@ -1,17 +1,25 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_IMAGE = "pytest-rest-api-docker-image" // Name of the Docker image
+    }
     stages {
         stage('Build Project Image') {
             steps {
                 script {
-                    sh 'docker build -t pytest-restapi .'
+                    // Build the project Docker image
+                    docker.build("${env.DOCKER_IMAGE}")
                 }
             }
         }
         stage('Run Tests') {
             steps {
                 script {
+                    // Run the project Docker container and execute tests
+                    docker.image("${env.DOCKER_IMAGE}").inside {
+                        // Run pytest inside the container
                         sh 'pytest -s -v --log-level=info --tb=auto --html=reports/report.html --self-contained-html'
+                    }
                 }
             }
         }
