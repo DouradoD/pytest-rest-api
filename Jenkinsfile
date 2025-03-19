@@ -15,7 +15,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'docker run --rm pytest-rest-api-docker-image pytest'
+                    sh "docker run --rm ${DOCKER_IMAGE}"
                 }
             }
         }
