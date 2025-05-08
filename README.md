@@ -10,7 +10,12 @@ This project provides a basic structure for REST APIs, implementing the Service 
 
 1. Clone the repository.
 2. Navigate to the project's root directory.
-3. Install the dependencies using the following command:
+3. Create a local venv, if it does not exists.
+   ```bash
+   python -m venv .venv
+   ```
+  Activate the local env on terminal -> Windows - .\.venv\Scripts\Activate.ps1
+4. Install the dependencies using the following command:
 
    ```bash
    pip install -r requirements.txt

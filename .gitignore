@@ -3,6 +3,7 @@
 
 #IDE configs
 .idea
+.vscode
 
 # python verions
 .python-version
