@@ -209,7 +209,7 @@ user_schema = user_schema = {
     }
 }
 
-# Real API base URL (not a mock!)
+# Real API base URL (mock API URL)
 API_BASE_URL = "https://restcountries.com/v3.1"
 
 # Schema to validate the response
