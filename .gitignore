@@ -16,3 +16,9 @@ report.html
 *.py[cod]
 
 assets
+
+# tmp folders
+logs
+tmp
+__pycache__
+pacts

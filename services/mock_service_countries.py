@@ -14,7 +14,8 @@ class MockServiceCountries(BaseServiceCountries):
         json_response = get_json_value('data/mock_data.json')
         # Mock the response of the API country
         mock_response = mocker.Mock()
-        mock_response.status_code = 200
+        # Set the mock response to return the mocked response
+        mock_response.status_code = 200 if endpoint.startswith('/name/') else 404
         mock_response.json.return_value = json_response['service']['countries']['method']['get']
         # Set the mock API country to return the mocked response
         mock_api_countries.get.return_value = mock_response
